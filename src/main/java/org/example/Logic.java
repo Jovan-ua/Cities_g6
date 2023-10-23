@@ -31,6 +31,10 @@ public class Logic {
     public void SortWordUser(String WordUser) {
         setReturnCode(0);
 
+        WordUser = WordUser.substring(0, 1).toUpperCase() + WordUser.substring(1).toLowerCase();
+        // Делаем так чтобы слово приняло облик "Слово". Пример - пришло "ТоРОнтО" - Возврат "Торонто"
+
+
         /*
         1 Сделать counter
         2 сделать Логику компьютера
@@ -69,11 +73,11 @@ public class Logic {
             this.setReturnCode(4);
 
         }
-        // 5 1-буква введенного города не= последней букве ранее введенного
+        // 5 1-буква введенного города не= последней букве ранее введенного + делаем приводим их в один регистр
         if (this.ListOfUsedCity.size() > 0 && getReturnCode() == 0) {
             String LastWord = String.valueOf(ListOfUsedCity.size() - 1);
-            String LastLetter = String.valueOf(LastWord.charAt(LastWord.length() - 1));
-            String FirstLatter = String.valueOf(WordUser.charAt(0));
+            String LastLetter = String.valueOf(LastWord.charAt(LastWord.length() - 1)).toUpperCase();
+            String FirstLatter = String.valueOf(WordUser.charAt(0)).toUpperCase();
 
             if (LastLetter != FirstLatter && getReturnCode() == 0) {
                 this.setReturnCode(5);

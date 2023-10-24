@@ -34,19 +34,18 @@ public class Main {
 
     public static void MainLogic() {
         String inputText = textField.getText(); // Получаем текст из поля ввода
-        gameLogica.SortWordUser(inputText);
+        gameLogica.SortWordUser(inputText); /// Отправляем текст в сортировку
         int returncode = gameLogica.getReturnCode();
-
+        gameLogica.ReturnLastWord(); // Что сказал компьютер
 
         if (returncode == 0) {
             System.out.println("all good");
             textField.setText("");
         } else if (returncode == 1) {
-            System.out.println("word less than 3 latters");
-            System.out.println("result" + gameLogica.ResultCount());
+            System.out.println("word less than 3 latters. You lose with score 0");
             textField.setText("");
         } else if (returncode == 2) {
-            System.out.println("you write здаюсь ");
+            System.out.println("you write Здаюсь ");
             System.out.println("result" + gameLogica.ResultCount());
             textField.setText("");
         } else if (returncode == 3) {

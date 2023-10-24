@@ -36,13 +36,15 @@ public class Main {
         String inputText = textField.getText(); // Получаем текст из поля ввода
         gameLogica.SortWordUser(inputText); /// Отправляем текст в сортировку
         int returncode = gameLogica.getReturnCode();
+
         gameLogica.ReturnLastWord(); // Что сказал компьютер
+        gameLogica.ResultCount(); // Возврат результатов
 
         if (returncode == 0) {
             System.out.println("all good");
             textField.setText("");
         } else if (returncode == 1) {
-            System.out.println("word less than 3 latters. You lose with score 0");
+            System.out.println("word less than 3 latters. result " + gameLogica.ResultCount());
             textField.setText("");
         } else if (returncode == 2) {
             System.out.println("you write Здаюсь ");

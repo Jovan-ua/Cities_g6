@@ -18,7 +18,7 @@ public class Logic {
         ListOfAllCity = new ArrayList<>(List.of(new String[]{"Kiev", "Valenm", "Mamoa", "America", "Alav","Vinas","Sierra", "Anglia", "Ankara", "Alams", "Sicil"})); // Все города мира чтобы делать проверку на User написал правильный город мира
         Random random = new Random(); // Генерация того на каком ходу проиграет компьютер
         int randomInt = random.nextInt(0, 6); // Сколько ходов сможет сделать компьютер
-        //randomInt = 20; //УДАЛИТЬЬЬЬЬЬ
+        randomInt = 20; //УДАЛИТЬЬЬЬЬЬ
         setNumberOfCountryThatComputerKnow(randomInt);
     }
     public int getCounterUser() {
@@ -96,7 +96,7 @@ public class Logic {
         }
 
         // 7 Компьютер проиграл
-        if (ListOfUsedCity.size() * 2 > getNumberOfCountryThatComputerKnow()){
+        if (ListOfUsedCity.size() * 2 > getNumberOfCountryThatComputerKnow() && getReturnCode() == 0){
             setCounterUser();
             this.setReturnCode(7);
         }

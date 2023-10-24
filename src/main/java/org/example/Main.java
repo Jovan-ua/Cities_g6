@@ -38,7 +38,7 @@ public class Main {
         int returncode = gameLogica.getReturnCode();
 
         gameLogica.ReturnLastWord(); // Что сказал компьютер
-        gameLogica.ResultCount(); // Возврат результатов
+        gameLogica.ResultCount(); // Возврат результатов игры
 
         if (returncode == 0) {
             System.out.println("all good");

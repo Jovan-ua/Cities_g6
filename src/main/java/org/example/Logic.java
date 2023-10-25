@@ -1,4 +1,7 @@
 package org.example;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 // Для ментора.  Не хочу писать else if() для более легкой прочитки кода
@@ -10,9 +13,11 @@ public class Logic {
     private int score;
 
     public Logic() {
-        ListOfCity = new ArrayList<>(List.of(new String[]{"Cameroon", "Solomon Islands", "Mamoa", "Sierra Leone"})); // Города с которыми мы играем
+        //ListOfCity = new ArrayList<>(List.of(new String[]{"Cameroon", "Solomon Islands", "Mamoa", "Sierra Leone"})); // Города с которыми мы играем
+        ListOfCity = getCapitalsList();
         ListOfUsedCity = new ArrayList<>(); // Место где храним использованые города за всю игру
-        ListOfAllCity = new ArrayList<>(List.of(new String[]{"Kiev", "Cameroon", "Mamoa", "Sierra Leone"})); // Все города мира чтобы делать проверку на User написал правильный город мира
+        //ListOfAllCity = new ArrayList<>(List.of(new String[]{"Kiev", "Cameroon", "Mamoa", "Sierra Leone"})); // Все города мира чтобы делать проверку на User написал правильный город мира
+        ListOfAllCity = getCapitalsList();
         score = 0;
     }
 
@@ -112,6 +117,23 @@ public class Logic {
     public String ReturnLastWord(){
         String LastWord = String.valueOf(ListOfUsedCity.size() - 1); // Слово что вывел компьютер
         return LastWord;
+    }
+
+    public static ArrayList<String> getCapitalsList() {
+
+        ArrayList<String> capitals = new ArrayList<>();
+        try (BufferedReader csvReader = new BufferedReader(new FileReader("Data.csv"))) {
+            String row;
+
+            while ((row = csvReader.readLine()) != null) {
+                String[] data = row.split(";");
+                capitals.add(data[1]);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return capitals;
     }
 }
 

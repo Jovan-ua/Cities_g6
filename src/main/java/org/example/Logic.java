@@ -1,7 +1,4 @@
 package org.example;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,8 +7,6 @@ import java.util.Random;
 public class Logic {
     private int ReturnCode = 0;
     //ArrayList<String> ListOfCity;
-
-
     ArrayList<String> ListOfUsedCity;
     ArrayList<String> ListOfAllCity;
 
@@ -19,18 +14,17 @@ public class Logic {
     private int NumberOfCountryThatComputerKnow = 0;
     public Logic() {
         //ListOfCity = new ArrayList<>(List.of(new String[]{"Kiev", "Valenm", "Mamoa", "Sierra"})); // Города с которыми мы играем
-        //ListOfAllCity = new ArrayList<>(List.of(new String[]{"Kiev", "Valenm", "Mamoa", "America", "Alav","Vinas","Sierra", "Anglia", "Ankara", "Alams", "Sicil"})); // Все города мира чтобы делать проверку на User написал правильный город мира
-
         ListOfUsedCity = new ArrayList<>(); // Место где храним использованые города за всю игру
-        ListOfAllCity = new ArrayList<>(getCapitalsList());
-
+        ListOfAllCity = new ArrayList<>(List.of(new String[]{"Kiev", "Valenm", "Mamoa", "America", "Alav","Vinas","Sierra", "Anglia", "Ankara", "Alams", "Sicil"})); // Все города мира чтобы делать проверку на User написал правильный город мира
         Random random = new Random(); // Генерация того на каком ходу проиграет компьютер
-        int randomInt = random.nextInt(10, 15); // Сколько ходов сможет сделать компьютер
+        int randomInt = random.nextInt(0, 6); // Сколько ходов сможет сделать компьютер
+        //randomInt = 20; //УДАЛИТЬЬЬЬЬЬ
         setNumberOfCountryThatComputerKnow(randomInt);
     }
     public int getCounterUser() {
         return counterUser;
     }
+
     public void setCounterUser() {
         this.counterUser++;
     }
@@ -125,7 +119,7 @@ public class Logic {
         for (String wordFromList : ListOfAllCity) {
             if (wordFromList.contains(founder)) {
                 flagLoser = true;
-                //System.out.println("Computer said + " + wordFromList);
+                System.out.println("Computer said + " + wordFromList);
                 ListOfUsedCity.add(wordFromList);
                 ListOfAllCity.remove(wordFromList);
                 setNumberOfCountryThatComputerKnow(getNumberOfCountryThatComputerKnow() - 1);
@@ -137,8 +131,8 @@ public class Logic {
         }
     }
 
-    public String ReturnLastWord(){ // IMPORTANT!!!!!!!!!!! переделать возвращает число ане слова
-        String LastWord = String.valueOf(this.ListOfUsedCity.get(ListOfUsedCity.size() - 1)); // Слово что вывел компьютер
+    public String ReturnLastWord(){
+        String LastWord = String.valueOf(ListOfUsedCity.size() - 1); // Слово что вывел компьютер
         return LastWord;
     }
 
@@ -155,23 +149,6 @@ public class Logic {
             Answer = " Компьютер выиграл. Названо стран" + FinalCount;
         }
         return Answer;
-    }
-
-    public static ArrayList<String> getCapitalsList() {
-
-        ArrayList<String> capitals = new ArrayList<>();
-        try (BufferedReader csvReader = new BufferedReader(new FileReader("Data.txt"))) {
-            String row;
-
-            while ((row = csvReader.readLine()) != null) {
-                String[] data = row.split(";");
-                capitals.add(data[1]);
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
-        return capitals;
     }
 }
 

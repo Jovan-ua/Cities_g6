@@ -37,7 +37,7 @@ public class Main {
         gameLogica.SortWordUser(inputText); /// Отправляем текст в сортировку
         int returncode = gameLogica.getReturnCode();
 
-        gameLogica.ReturnLastWord(); // Что сказал компьютер
+        System.out.println("Important NOW Слово компа!!    " + gameLogica.ReturnLastWord()); // Что сказал компьютер
         gameLogica.ResultCount(); // Возврат результатов игры
 
         if (returncode == 0) {
@@ -56,7 +56,7 @@ public class Main {
             textField.setText("");
         }else if (returncode == 4) {
             System.out.println("this is not a city from world");
-            System.out.println("result" + gameLogica.ResultCount());
+            System.out.println("result " + gameLogica.ResultCount());
             textField.setText("");
         } else if (returncode == 5) {
             System.out.println("Later is not correct. last word ended on the auther later");

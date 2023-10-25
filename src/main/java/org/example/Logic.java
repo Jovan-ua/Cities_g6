@@ -1,4 +1,7 @@
 package org.example;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,9 +16,10 @@ public class Logic {
     private int counterUser = 0;
     private int NumberOfCountryThatComputerKnow = 0;
     public Logic() {
-        //ListOfCity = new ArrayList<>(List.of(new String[]{"Kiev", "Valenm", "Mamoa", "Sierra"})); // Города с которыми мы играем
+
+        
         ListOfUsedCity = new ArrayList<>(); // Место где храним использованые города за всю игру
-        ListOfAllCity = new ArrayList<>(List.of(new String[]{"Kiev", "Valenm", "Mamoa", "America", "Alav","Vinas","Sierra", "Anglia", "Ankara", "Alams", "Sicil"})); // Все города мира чтобы делать проверку на User написал правильный город мира
+        ListOfAllCity = getCapitalsList();
         Random random = new Random(); // Генерация того на каком ходу проиграет компьютер
         int randomInt = random.nextInt(0, 6); // Сколько ходов сможет сделать компьютер
         //randomInt = 20; //УДАЛИТЬЬЬЬЬЬ
@@ -27,6 +31,7 @@ public class Logic {
 
     public void setCounterUser() {
         this.counterUser++;
+
     }
 
     public int getNumberOfCountryThatComputerKnow() {
@@ -136,6 +141,7 @@ public class Logic {
         return LastWord;
     }
 
+
     // Вывод счета
     public String ResultCount(){
         int FinalCount = 0;
@@ -149,6 +155,23 @@ public class Logic {
             Answer = " Компьютер выиграл. Названо стран" + FinalCount;
         }
         return Answer;
+
+    public static ArrayList<String> getCapitalsList() {
+
+        ArrayList<String> capitals = new ArrayList<>();
+        try (BufferedReader csvReader = new BufferedReader(new FileReader("Data.csv"))) {
+            String row;
+
+            while ((row = csvReader.readLine()) != null) {
+                String[] data = row.split(";");
+                capitals.add(data[1]);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return capitals;
+
     }
 }
 

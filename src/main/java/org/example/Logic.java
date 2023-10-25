@@ -4,25 +4,42 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 // Для ментора.  Не хочу писать else if() для более легкой прочитки кода
 public class Logic {
     private int ReturnCode = 0;
-    ArrayList<String> ListOfCity;
+    //ArrayList<String> ListOfCity;
     ArrayList<String> ListOfUsedCity;
     ArrayList<String> ListOfAllCity;
-    private int score;
 
+    private int counterUser = 0;
+    private int NumberOfCountryThatComputerKnow = 0;
     public Logic() {
-        //ListOfCity = new ArrayList<>(List.of(new String[]{"Cameroon", "Solomon Islands", "Mamoa", "Sierra Leone"})); // Города с которыми мы играем
-        ListOfCity = getCapitalsList();
+
+        
         ListOfUsedCity = new ArrayList<>(); // Место где храним использованые города за всю игру
-        //ListOfAllCity = new ArrayList<>(List.of(new String[]{"Kiev", "Cameroon", "Mamoa", "Sierra Leone"})); // Все города мира чтобы делать проверку на User написал правильный город мира
         ListOfAllCity = getCapitalsList();
-        score = 0;
+        Random random = new Random(); // Генерация того на каком ходу проиграет компьютер
+        int randomInt = random.nextInt(0, 6); // Сколько ходов сможет сделать компьютер
+        //randomInt = 20; //УДАЛИТЬЬЬЬЬЬ
+        setNumberOfCountryThatComputerKnow(randomInt);
+    }
+    public int getCounterUser() {
+        return counterUser;
     }
 
-    public int getScore() {
-        return score;
+    public void setCounterUser() {
+        this.counterUser++;
+
+    }
+
+    public int getNumberOfCountryThatComputerKnow() {
+        return NumberOfCountryThatComputerKnow;
+    }
+
+    public void setNumberOfCountryThatComputerKnow(int numberOfCountryThatComputerKnow) {
+        NumberOfCountryThatComputerKnow = numberOfCountryThatComputerKnow;
     }
 
     public int getReturnCode() {
@@ -34,15 +51,6 @@ public class Logic {
     }
 
     public void SortWordUser(String WordUser) {
-        setReturnCode(0);
-
-        /*
-        1 Сделать counter
-        2 сделать Логику компьютера
-        3 Сменить города на украинский текст
-
-        *Дополнительно можно сделать ArrayList в котором будут города под рандомными индексами
-        */
 
         //setReturnCode(Число); Используем для того чтобы понять что пошло не так или так
 
@@ -54,13 +62,18 @@ public class Logic {
         // 6 добавление всего в случае прохождения проверок; Все проверки пройдены игра продолжаеться - Код возврата = 0
         // 7 Компьютер сдался
 
+        setReturnCode(0);
+
+        WordUser = WordUser.substring(0, 1).toUpperCase() + WordUser.substring(1).toLowerCase().strip();
+        // Делаем так чтобы слово приняло облик "Слово". Пример - пришло "ТоРОнтО" - Возврат "Торонто"
+
         // 1 Проверяем длинну
         if (WordUser.length() < 3) {
             this.setReturnCode(1);
 
         }
         // 2 НЕ = ли слово здаюсь
-        if (WordUser.equals("здаюсь") && getReturnCode() == 0) {
+        if (WordUser.equals("Здаюсь") && getReturnCode() == 0) {
             this.setReturnCode(2);
 
         }
@@ -70,47 +83,56 @@ public class Logic {
 
         }
         // 4 А город ли это во всем мире
-        if (this.ListOfUsedCity.size() > 0 && this.ListOfUsedCity.contains(WordUser) && getReturnCode() == 0) {
+        if (!this.ListOfAllCity.contains(WordUser) && getReturnCode() == 0) {
             this.setReturnCode(4);
 
         }
-        // 5 1-буква введенного города не= последней букве ранее введенного
-        if (this.ListOfUsedCity.size() > 0 && getReturnCode() == 0) {
-            String LastWord = String.valueOf(ListOfUsedCity.size() - 1);
-            String LastLetter = String.valueOf(LastWord.charAt(LastWord.length() - 1));
-            String FirstLatter = String.valueOf(WordUser.charAt(0));
 
-            if (LastLetter != FirstLatter && getReturnCode() == 0) {
+        // 5 1-буква введенного города не= последней букве ранее введенного + делаем приводим их в один регистр
+        if (this.ListOfUsedCity.size() > 0 && getReturnCode() == 0) {
+            String LastWord = String.valueOf(this.ListOfUsedCity.get(ListOfUsedCity.size() - 1));
+            String LastLetter = String.valueOf(LastWord.charAt(LastWord.length() - 1)).toUpperCase();
+            String FirstLatter = String.valueOf(WordUser.charAt(0)).toUpperCase();
+
+            if (!LastLetter.equals(FirstLatter) && getReturnCode() == 0) {
                 this.setReturnCode(5);
 
             }
         }
+
+        // 7 Компьютер проиграл
+        if (ListOfUsedCity.size() * 2 > getNumberOfCountryThatComputerKnow() && getReturnCode() == 0){
+            setCounterUser();
+            this.setReturnCode(7);
+        }
+
         // 6 добавление всего в случае прохождения всех проверок
         if (ReturnCode == 0 && getReturnCode() == 0) {
             ListOfUsedCity.add(WordUser);
-            ListOfCity.remove(WordUser);
+            setCounterUser();
+            ListOfAllCity.remove(WordUser);
 
             StepComputer();
         }
-
-
-        // 7
-//        if (ListOfCity.size() == 0){
-//            setReturnCode(7);
-//        }
     }
-
+        // Шаг компьютера
     public void StepComputer() {
-        String LastWord = String.valueOf(this.ListOfUsedCity.size() - 1);
-        String founder = String.valueOf(LastWord.charAt(LastWord.length() - 1));
+        String LastWord = String.valueOf(this.ListOfUsedCity.get(ListOfUsedCity.size() - 1));
+        String founder = String.valueOf(LastWord.charAt(LastWord.length() - 1)).toUpperCase();
+        boolean flagLoser = false;
 
-        for (String wordFromList : ListOfCity) {
+        for (String wordFromList : ListOfAllCity) {
             if (wordFromList.contains(founder)) {
+                flagLoser = true;
                 System.out.println("Computer said + " + wordFromList);
                 ListOfUsedCity.add(wordFromList);
-                ListOfCity.remove(wordFromList);
+                ListOfAllCity.remove(wordFromList);
+                setNumberOfCountryThatComputerKnow(getNumberOfCountryThatComputerKnow() - 1);
                 break;
             }
+        }
+        if (flagLoser == false){
+            setReturnCode(7);
         }
     }
 
@@ -118,6 +140,21 @@ public class Logic {
         String LastWord = String.valueOf(ListOfUsedCity.size() - 1); // Слово что вывел компьютер
         return LastWord;
     }
+
+
+    // Вывод счета
+    public String ResultCount(){
+        int FinalCount = 0;
+        String Answer = "";
+
+        FinalCount = getCounterUser();
+
+        if (this.getReturnCode() == 7){
+            Answer = "User выиграл. Названо стран " + FinalCount;
+        }else {
+            Answer = " Компьютер выиграл. Названо стран" + FinalCount;
+        }
+        return Answer;
 
     public static ArrayList<String> getCapitalsList() {
 
@@ -134,6 +171,7 @@ public class Logic {
         }
 
         return capitals;
+
     }
 }
 

@@ -34,30 +34,37 @@ public class Main {
 
     public static void MainLogic() {
         String inputText = textField.getText(); // Получаем текст из поля ввода
-        gameLogica.SortWordUser(inputText);
+        gameLogica.SortWordUser(inputText); /// Отправляем текст в сортировку
         int returncode = gameLogica.getReturnCode();
 
-        gameLogica.getScore();
+        gameLogica.ReturnLastWord(); // Что сказал компьютер
+        gameLogica.ResultCount(); // Возврат результатов игры
+
         if (returncode == 0) {
             System.out.println("all good");
             textField.setText("");
         } else if (returncode == 1) {
-            System.out.println("word less than 3 latters");
+            System.out.println("word less than 3 latters. result " + gameLogica.ResultCount());
             textField.setText("");
         } else if (returncode == 2) {
-            System.out.println("you write здаюсь ");
+            System.out.println("you write Здаюсь ");
+            System.out.println("result" + gameLogica.ResultCount());
             textField.setText("");
-        } else if (returncode == 4) {
+        } else if (returncode == 3) {
             System.out.println("word is used");
+            System.out.println("result" + gameLogica.ResultCount());
+            textField.setText("");
+        }else if (returncode == 4) {
+            System.out.println("this is not a city from world");
+            System.out.println("result" + gameLogica.ResultCount());
             textField.setText("");
         } else if (returncode == 5) {
             System.out.println("Later is not correct. last word ended on the auther later");
+            System.out.println("result" + gameLogica.ResultCount());
             textField.setText("");
-        } else if (returncode == 6) {
-            System.out.println("this is not a city from world");
-            textField.setText("");
-        } else if (returncode == 6) {
+        }  else if (returncode == 7) {
             System.out.println("Computer loser");
+            System.out.println("result" + gameLogica.ResultCount());
             textField.setText("");
         }
     }

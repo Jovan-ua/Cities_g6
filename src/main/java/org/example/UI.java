@@ -6,10 +6,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UI {
+    static Logic logic = new Logic();
     static private JFrame startFrame = new JFrame("Вітання!");// Начальный экран
     static private JFrame mainFrame = new JFrame("Міста");// Экран игры
     static Font font = new Font("Arial", Font.PLAIN, 15);// Выбор шрифта
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();// Определение размера экрана
+
+    public static String getUserCityTxt() {
+        return userCityTxt;
+    }
+
+    private static String userCityTxt;
 
     public static void main(String[] args) {
         int startFrameWidth = 400;
@@ -38,17 +45,25 @@ public class UI {
                 int yMain = (screenSize.height - mainFrameHeight) / 2;
                 mainFrame.setSize(mainFrameWidth, mainFrameHeight); // Основной экран игры
                 Label playLabel = new Label("Введіть назву міста");
-                playLabel.setBounds(10, 40, 150, 50);
-                playLabel.setFont(font);
-                Label computerLabel = new Label("Комп'ютер:" + "город из логики");
-                computerLabel.setBounds(10, 100, 200, 50);
-                computerLabel.setFont(font);
                 JTextField userCity = new JTextField(10);
                 userCity.setBounds(210, 40, 150, 40);
                 userCity.setFont(font);
+                playLabel.setBounds(10, 40, 150, 50);
+                playLabel.setFont(font);
                 Button playButton = new Button("ХІД");
+                playButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String userCityTxt = userCity.getText();
+
+                        System.out.println(userCityTxt);
+                    }
+                });
                 playButton.setBounds(210, 100, 150, 40);
                 playButton.setFont(font);
+                Label computerLabel = new Label("Комп'ютер:" + logic.ReturnLastWord());
+                computerLabel.setBounds(10, 100, 200, 50);
+                computerLabel.setFont(font);
                 mainFrame.add(playLabel);
                 mainFrame.add(computerLabel);
                 mainFrame.add(userCity);
@@ -56,13 +71,7 @@ public class UI {
                 mainFrame.setLayout(null);
                 mainFrame.setLocation(xMain, yMain);
                 mainFrame.setVisible(true);
-                playButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        String userCityTxt = userCity.getText();
-                        System.out.println(userCityTxt);
-                    }
-                });
+
             }
         });
     }

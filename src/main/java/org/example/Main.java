@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Main {
+    private static UI ui = new UI();
     public static Logic gameLogica;
     public static JTextField textField;
 
@@ -33,7 +34,7 @@ public class Main {
     }
 
     public static void MainLogic() {
-        String inputText = textField.getText(); // Получаем текст из поля ввода
+        String inputText = UI.getUserCityTxt(); // Получаем текст из поля ввода
         gameLogica.SortWordUser(inputText); /// Отправляем текст в сортировку
         int returncode = gameLogica.getReturnCode();
 

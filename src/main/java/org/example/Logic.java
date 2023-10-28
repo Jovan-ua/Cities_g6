@@ -142,7 +142,7 @@ public class Logic {
     }
 
     public String ReturnLastWord() {
-        ListOfUsedCity.add("a");
+//        ListOfUsedCity.add("a");
         String LastWord = String.valueOf(this.ListOfUsedCity.get(ListOfUsedCity.size() - 1)); // Слово что вывел компьютер
         System.out.println(LastWord);
         return LastWord;

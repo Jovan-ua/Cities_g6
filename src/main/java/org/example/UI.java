@@ -80,7 +80,7 @@ public class UI {
                             Label endLabel = new Label("Вітаю! Ви Перемогли!");// Приветственная надпись
                             endLabel.setBounds(150, 40, 400, 20);
                             endLabel.setFont(font);
-                            Label label1 = new Label("Ви заробили " + logic.getReturnCode());
+                            Label label1 = new Label("Ви заробили " + logic.getCounterUser());
                             label1.setBounds(150, 60, 400, 20);
                             label1.setFont(font);
                             endFrame.add(endLabel);
@@ -98,7 +98,7 @@ public class UI {
                             Label endLabel = new Label("Нажаль ви програли");// Приветственная надпись
                             endLabel.setBounds(145, 40, 400, 20);
                             endLabel.setFont(font);
-                            Label label1 = new Label("Ви заробили " + logic.getReturnCode() + " очка");
+                            Label label1 = new Label("Ви заробили " + logic.getCounterUser() + " очка");
                             label1.setBounds(150, 60, 400, 20);
                             label1.setFont(font);
                             endFrame.add(endLabel);

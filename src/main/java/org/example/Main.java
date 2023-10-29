@@ -36,36 +36,36 @@ public class Main {
     public static void MainLogic() {
         String inputText = UI.getUserCityTxt(); // Получаем текст из поля ввода
         gameLogica.SortWordUser(inputText); /// Отправляем текст в сортировку
-        int returncode = gameLogica.getReturnCode();
+        int returnCode = gameLogica.getReturnCode();
 
-        gameLogica.ReturnLastWord(); // Что сказал компьютер
-        gameLogica.ResultCount(); // Возврат результатов игры
+        gameLogica.returnLastWord(); // Что сказал компьютер
+        gameLogica.resultCount(); // Возврат результатов игры
 
-        if (returncode == 0) {
+        if (returnCode == 0) {
             System.out.println("all good");
             textField.setText("");
-        } else if (returncode == 1) {
-            System.out.println("word less than 3 latters. result " + gameLogica.ResultCount());
+        } else if (returnCode == 1) {
+            System.out.println("word less than 3 latters. result " + gameLogica.resultCount());
             textField.setText("");
-        } else if (returncode == 2) {
+        } else if (returnCode == 2) {
             System.out.println("you write Здаюсь ");
-            System.out.println("result" + gameLogica.ResultCount());
+            System.out.println("result" + gameLogica.resultCount());
             textField.setText("");
-        } else if (returncode == 3) {
+        } else if (returnCode == 3) {
             System.out.println("word is used");
-            System.out.println("result" + gameLogica.ResultCount());
+            System.out.println("result" + gameLogica.resultCount());
             textField.setText("");
-        }else if (returncode == 4) {
+        }else if (returnCode == 4) {
             System.out.println("this is not a city from world");
-            System.out.println("result" + gameLogica.ResultCount());
+            System.out.println("result" + gameLogica.resultCount());
             textField.setText("");
-        } else if (returncode == 5) {
+        } else if (returnCode == 5) {
             System.out.println("Later is not correct. last word ended on the auther later");
-            System.out.println("result" + gameLogica.ResultCount());
+            System.out.println("result" + gameLogica.resultCount());
             textField.setText("");
-        }  else if (returncode == 7) {
+        }  else if (returnCode == 7) {
             System.out.println("Computer loser");
-            System.out.println("result" + gameLogica.ResultCount());
+            System.out.println("result" + gameLogica.resultCount());
             textField.setText("");
         }
     }

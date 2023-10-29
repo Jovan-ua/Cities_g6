@@ -1,5 +1,4 @@
 package org.example;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,11 +20,10 @@ public class Logic {
 
 
         ListOfUsedCity = new ArrayList<>(); // Место где храним использованые города за всю игру
-       // ListOfAllCity = new ArrayList<>(List.of(new String[]{"Kiev", "Vena"}));
-          ListOfAllCity = getCapitalsList();
+        ListOfAllCity = getCapitalsList();
         Random random = new Random(); // Генерация того на каком ходу проиграет компьютер
-        int randomInt = random.nextInt(0, 6); // Сколько ходов сможет сделать компьютер
-        //randomInt = 20; //УДАЛИТЬЬЬЬЬЬ
+        int randomInt = random.nextInt(250, 260); // Сколько ходов сможет сделать компьютер
+       //`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````` randomInt = ListOfUsedCity.size(); //УДАЛИТЬЬЬЬЬЬ
         setNumberOfCountryThatComputerKnow(randomInt);
     }
 
@@ -116,12 +114,12 @@ public class Logic {
             setCounterUser();
             ListOfAllCity.remove(WordUser);
 
-            StepComputer();
+            stepComputer();
         }
     }
 
     // Шаг компьютера
-    public void StepComputer() {
+    public void stepComputer() {
         String LastWord = String.valueOf(this.ListOfUsedCity.get(ListOfUsedCity.size() - 1));
         String founder = String.valueOf(LastWord.charAt(LastWord.length() - 1)).toUpperCase();
         boolean flagLoser = false;
@@ -141,16 +139,14 @@ public class Logic {
         }
     }
 
-    public String ReturnLastWord() {
-//        ListOfUsedCity.add("a");
+    public String returnLastWord() {
         String LastWord = String.valueOf(this.ListOfUsedCity.get(ListOfUsedCity.size() - 1)); // Слово что вывел компьютер
-        System.out.println(LastWord);
         return LastWord;
     }
 
 
     // Вывод счета
-    public String ResultCount() {
+    public String resultCount() {
         int FinalCount = 0;
         String Answer = "";
 
@@ -164,21 +160,24 @@ public class Logic {
         return Answer;
     }
 
-    public static ArrayList<String> getCapitalsList() {
+        public static ArrayList<String> getCapitalsList () {
 
-        ArrayList<String> capitals = new ArrayList<>();
-        try (BufferedReader csvReader = new BufferedReader(new FileReader("Data.txt"))) {
-            String row;
+            ArrayList<String> capitals = new ArrayList<>();
+            try (BufferedReader csvReader = new BufferedReader(new FileReader("Data.txt"))) {
+                String row;
 
-            while ((row = csvReader.readLine()) != null) {
-                String[] data = row.split(";");
-                capitals.add(data[1]);
+                while ((row = csvReader.readLine()) != null) {
+                    String[] data = row.split(";");
+                    capitals.add(data[1]);
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        return capitals;
 
+            return capitals;
+
+        }
     }
-}
+
+
 

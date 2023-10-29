@@ -54,15 +54,59 @@ public class UI {
                 playButton.setBounds(210, 100, 150, 40);
                 playButton.setFont(font);
                  Label computerLabel = new Label("Комп'ютер:");
-                computerLabel.setBounds(10, 100, 200, 50);
+                computerLabel.setBounds(10, 100, 200, 20);
                 computerLabel.setFont(font);
                 playButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String userCityTxt = userCity.getText();
-                        System.out.println(userCityTxt);
                         logic.SortWordUser(userCityTxt);
-                        computerLabel.setText("Комп'ютер: " + logic.ReturnLastWord());
+                        int code = logic.getReturnCode();
+                        if (code == 0) {
+                            computerLabel.setText("Комп'ютер: " + logic.returnLastWord());
+                        } else if (code == 4 ) {
+                            computerLabel.setText("Комп'ютер: Вибачте");
+                            Label label1 = new Label("я не знаю такого міста");
+                            label1.setFont(font);
+                            label1.setBounds(10, 120, 200, 20);
+                            mainFrame.add(label1);
+                        } else if (code == 7) {
+                            Frame endFrame = new Frame("Міста");
+                            int endFrameWidth = 400;
+                            int endFrameHeight = 100;
+                            int xEnd = (screenSize.width - startFrameWidth) / 2;
+                            int yEnd = (screenSize.height - startFrameHeight) / 2;
+                            endFrame.setSize(startFrameWidth, startFrameHeight);
+                            Label endLabel = new Label("Вітаю! Ви Перемогли!");// Приветственная надпись
+                            endLabel.setBounds(150, 40, 400, 20);
+                            endLabel.setFont(font);
+                            Label label1 = new Label("Ви заробили " + logic.getReturnCode());
+                            label1.setBounds(150, 60, 400, 20);
+                            label1.setFont(font);
+                            endFrame.add(endLabel);
+                            endFrame.add(label1);
+                            endFrame.setLayout(null);
+                            endFrame.setLocation(xStart, yStart); // Вывод окна по центру экрана
+                            endFrame.setVisible(true);
+                        } else if (userCityTxt.equals("Здаюсь")) {
+                            Frame endFrame = new Frame("Міста");
+                            int endFrameWidth = 400;
+                            int endFrameHeight = 100;
+                            int xEnd = (screenSize.width - startFrameWidth) / 2;
+                            int yEnd = (screenSize.height - startFrameHeight) / 2;
+                            endFrame.setSize(startFrameWidth, startFrameHeight);
+                            Label endLabel = new Label("Нажаль ви програли");// Приветственная надпись
+                            endLabel.setBounds(145, 40, 400, 20);
+                            endLabel.setFont(font);
+                            Label label1 = new Label("Ви заробили " + logic.getReturnCode() + " очка");
+                            label1.setBounds(150, 60, 400, 20);
+                            label1.setFont(font);
+                            endFrame.add(endLabel);
+                            endFrame.add(label1);
+                            endFrame.setLayout(null);
+                            endFrame.setLocation(xStart, yStart); // Вывод окна по центру экрана
+                            endFrame.setVisible(true);
+                        }
 
 
                     }

@@ -70,6 +70,16 @@ public class UI {
                             label1.setFont(font);
                             label1.setBounds(10, 120, 200, 20);
                             mainFrame.add(label1);
+                        }else if(code == 3 ){
+                            computerLabel.setText("Комп'ютер: Вибачте");
+                            Label label1 = new Label("ви вже використовували");
+                            label1.setFont(font);
+                            label1.setBounds(10, 120, 200, 20);
+                            Label label2 = new Label("це місто");
+                            label1.setFont(font);
+                            label1.setBounds(10, 125, 200, 20);
+                            mainFrame.add(label1);
+                            mainFrame.add(label2);
                         } else if (code == 7) {
                             Frame endFrame = new Frame("Міста");
                             int endFrameWidth = 400;
@@ -80,7 +90,7 @@ public class UI {
                             Label endLabel = new Label("Вітаю! Ви Перемогли!");// Приветственная надпись
                             endLabel.setBounds(150, 40, 400, 20);
                             endLabel.setFont(font);
-                            Label label1 = new Label("Ви заробили " + logic.getCounterUser());
+                            Label label1 = new Label("Ви заробили " + logic.getCounterUser() + " очків");
                             label1.setBounds(150, 60, 400, 20);
                             label1.setFont(font);
                             endFrame.add(endLabel);
@@ -88,7 +98,7 @@ public class UI {
                             endFrame.setLayout(null);
                             endFrame.setLocation(xStart, yStart); // Вывод окна по центру экрана
                             endFrame.setVisible(true);
-                        } else if (userCityTxt.equals("Здаюсь")) {
+                        } else if (code == 2) {
                             Frame endFrame = new Frame("Міста");
                             int endFrameWidth = 400;
                             int endFrameHeight = 100;
@@ -98,7 +108,7 @@ public class UI {
                             Label endLabel = new Label("Нажаль ви програли");// Приветственная надпись
                             endLabel.setBounds(145, 40, 400, 20);
                             endLabel.setFont(font);
-                            Label label1 = new Label("Ви заробили " + logic.getCounterUser() + " очка");
+                            Label label1 = new Label("Ви заробили " + logic.getCounterUser() + " очків");
                             label1.setBounds(150, 60, 400, 20);
                             label1.setFont(font);
                             endFrame.add(endLabel);
